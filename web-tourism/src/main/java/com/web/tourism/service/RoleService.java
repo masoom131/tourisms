@@ -1,18 +1,19 @@
 package com.web.tourism.service;
 
+import com.web.tourism.entity.Role;
 import com.web.tourism.payload.RoleDto;
 
 import java.util.List;
 
 public interface RoleService {
 
-    RoleDto createRole(RoleDto roleDto);
+    String addRole(Role role);
 
-    RoleDto updateRole(RoleDto roleDto, Long roleId);
+    String updateRole(Role role, Long roleId);
 
-    void deleteRole(Long roleId);
+    String deleteRole(Long roleId);
 
-    RoleDto getRole(Long roleId);
+    String getRole(Long roleId);
 
-    List<RoleDto> getRoles();
+    String getAllRole();
 }

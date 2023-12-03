@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -15,22 +16,27 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer postId;
+    private Long postId;
+
     private String postTitle;
+
     private String postContent;
+
     private String postImage;
+
+    @CreationTimestamp
     private Date createDate;
 
-    public void setUser(User user) {
-    }
+    private Date modofiedDate;
+
+    /*public void setUser(User user) {
+    }*/
 
     /*@ManyToOne
     @JoinColumn(name = "user_id")
     private User user;*/
 
     /*@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<Comment> comments = new HashSet<>();*/
+    private Set<Comment> comments = new HashSet();*/
 
-    /*public void setUser(User user) {
-    }*/
 }

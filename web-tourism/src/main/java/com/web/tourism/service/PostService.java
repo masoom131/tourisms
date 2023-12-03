@@ -1,24 +1,22 @@
 package com.web.tourism.service;
 
-import com.web.tourism.payload.PostDto;
-import com.web.tourism.reqres.PostResponse;
-
-import java.util.List;
+import com.web.tourism.entity.Post;
+import com.web.tourism.entity.User;
 
 public interface PostService {
 
-    PostDto createPost(PostDto postDto, Long userId);
+    String addPost(Post post);
 
-    PostDto updatePost(PostDto postDto, Long postId);
+    String updatePost(Post post, Long postId);
 
-    void deletePost(Long postId);
+    String deletePost(Long postId);
 
-    PostDto getPost(Long postId);
+    String getPost(Long postId);
 
-    List<PostDto> getPosts();
+    String getAllPost();
 
-    PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+    /*PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
-    List<PostDto> getPostsByUser(Long userId);
+    List<PostDto> getPostsByUser(Long userId);*/
 
 }

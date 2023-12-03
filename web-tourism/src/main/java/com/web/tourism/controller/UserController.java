@@ -1,58 +1,81 @@
 package com.web.tourism.controller;
 
-import com.web.tourism.payload.UserDto;
-import com.web.tourism.reqres.ApiResponse;
+import com.web.tourism.entity.User;
 import com.web.tourism.service.UserService;
+import com.web.tourism.util.WebTourismUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/auth/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private WebTourismUtil webTourismUtil;
 
+    /* User API Controller */
     @PostMapping("/add")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        UserDto addUser = userService.createUser(userDto);
-        return ResponseEntity.ok(addUser);
+    public ResponseEntity<String> addUser(@RequestBody User user) {
+        String addUser = userService.addUser(user);
+        return webTourismUtil.responseStatus(addUser);
     }
 
     @PutMapping("/up/{userId}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable Long userId) {
-        UserDto updateUser = userService.updateUser(userDto, userId);
-        return ResponseEntity.ok(updateUser);
+    public ResponseEntity<String> updateUser(@RequestBody User user, @PathVariable Long userId) {
+        String updateUser = userService.updateUser(user, userId);
+        return webTourismUtil.responseStatus(updateUser);
     }
 
     @DeleteMapping("/del/{userId}")
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId) {
-        userService.deleteUser(userId);
-        return ResponseEntity.ok(new ApiResponse("User Deleted Successfully!!!", true));
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        String deleteUser = userService.deleteUser(userId);
+        return webTourismUtil.responseStatus(deleteUser);
     }
 
-    @GetMapping("/id/{userId}")
-    public ResponseEntity<UserDto> getByUserId(@PathVariable Long userId) {
-        UserDto userById = userService.getByUserId(userId);
-        return ResponseEntity.ok(userById);
+    @GetMapping("/get/{userId}")
+    public ResponseEntity<String> getUser(@PathVariable Long userId) {
+        String fetchUser = userService.getUser(userId);
+        return webTourismUtil.responseStatus(fetchUser);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getByUserId() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    @GetMapping("/get/all")
+    public ResponseEntity<String> getAllUser() {
+        String fetchAllUser = userService.getAllUser();
+        return webTourismUtil.responseStatus(fetchAllUser);
     }
 
+
+    /* User With Address API Controller */
     @PostMapping("/ua/add")
-    public ResponseEntity<UserDto> createUserAddress(@RequestBody UserDto userDto) {
-        UserDto addUser = userService.createUser(userDto);
-        return ResponseEntity.ok(addUser);
+    public ResponseEntity<String> addUserAddress(@RequestBody User user) {
+        String addUserAddress = userService.addUserAddress(user);
+        return webTourismUtil.responseStatus(addUserAddress);
     }
 
-    @PutMapping("/up/ua/{userId}")
-    public ResponseEntity<UserDto> updateUserAddress(@RequestBody UserDto userDto, @PathVariable Long userId) {
-        UserDto updateUser = userService.updateUser(userDto, userId);
-        return ResponseEntity.ok(updateUser);
+    @PutMapping("/ua/up/{userId}")
+    public ResponseEntity<String> updateUserAddress(@RequestBody User user, @PathVariable Long userId) {
+        String updateUserAddress = userService.updateUserAddress(user, userId);
+        return webTourismUtil.responseStatus(updateUserAddress);
+    }
+
+    @DeleteMapping("/ua/del/{userId}")
+    public ResponseEntity<String> deleteUserAddress(@PathVariable Long userId) {
+        String deleteUserAddress = userService.deleteUserAddress(userId);
+        return webTourismUtil.responseStatus(deleteUserAddress);
+    }
+
+    @GetMapping("/ua/get/{userId}")
+    public ResponseEntity<String> getUserAddress(@PathVariable Long userId) {
+        String fetchUserAddress = userService.getUserAddress(userId);
+        return webTourismUtil.responseStatus(fetchUserAddress);
+    }
+
+    @GetMapping("/ua/get/all")
+    public ResponseEntity<String> getAllUserAddress() {
+        String fetchAllUserAddress = userService.getAllUserAddress();
+        return webTourismUtil.responseStatus(fetchAllUserAddress);
     }
 }

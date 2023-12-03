@@ -1,3 +1,4 @@
+/*
 package com.web.tourism.reqres;
 
 import com.web.tourism.payload.PostDto;
@@ -25,3 +26,4 @@ public class PostResponse {
     private boolean lastPage;
 
 }
+*/

@@ -9,19 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserDto {
-
     private long userId;
-
     private String userName;
-
     private String userEmail;
-
     private String userPhone;
-
     private String userGender;
-
     private String userPassword;
-
-    private Address address;
     /*private Set<RoleDto> roles = new HashSet<>();*/
 }

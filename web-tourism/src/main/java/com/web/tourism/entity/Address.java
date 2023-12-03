@@ -27,7 +27,7 @@ public class Address {
     private String userCity;
     private String userCountry;
     private String zipCode;
-    private Long userId;
+    @CreationTimestamp
     private Date createDate;
     private Date modifiedDate;
 

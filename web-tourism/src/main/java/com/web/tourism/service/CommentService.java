@@ -1,11 +1,17 @@
 package com.web.tourism.service;
 
-import com.web.tourism.payload.CommentDto;
+import com.web.tourism.entity.Comment;
 
 public interface CommentService {
 
-    CommentDto createComment(CommentDto commentDto, Long postId);
+    String addComment(Comment comment);
 
-    void deleteComment(Long commentId);
+    String updateComment(Comment comment, Long commentId);
+
+    String deleteComment(Long commentId);
+
+    String getComment(Long commentId);
+
+    String getAllComment();
 
 }

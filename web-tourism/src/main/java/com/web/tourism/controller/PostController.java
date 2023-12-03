@@ -1,9 +1,10 @@
 package com.web.tourism.controller;
 import java.util.List;
 
+import com.web.tourism.entity.Post;
+import com.web.tourism.entity.User;
 import com.web.tourism.reqres.ApiResponse;
-import com.web.tourism.util.TourismConstants;
-import com.web.tourism.reqres.PostResponse;
+import com.web.tourism.util.WebTourismUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,59 +15,51 @@ import com.web.tourism.payload.PostDto;
 import com.web.tourism.service.PostService;
 
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/api/auth/post")
 public class PostController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private WebTourismUtil webTourismUtil;
 
     /*@Autowired
-    private FileService fileService;
+    private FileService fileService;*/
 
-    @Value("${project.image}")
+   /* @Value("${project.image}")
     private String path;*/
 
-    //create post through userId & categoryId
-    @PostMapping("/user/{userId}")
-    @ApiOperation("create post by 'body'")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable Long userId) {
-        PostDto createPostDto = postService.createPost(postDto, userId);
-        return new ResponseEntity<PostDto>(createPostDto, HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<String> addPost(@RequestBody Post post) {
+        String addPost = postService.addPost(post);
+        return webTourismUtil.responseStatus(addPost);
     }
 
-    //update post through postId
-    @PutMapping("/update/{postId}")
-    @ApiOperation("update post by 'commentId & body'")
-    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto, @PathVariable Long postId) {
-        PostDto updatePostDto = postService.updatePost(postDto, postId);
-        return new ResponseEntity<>(updatePostDto, HttpStatus.OK);
+    @PutMapping("/up/{postId}")
+    public ResponseEntity<String> updatePost(@RequestBody Post post, @PathVariable Long postId) {
+        String updatePost = postService.updatePost(post, postId);
+        return webTourismUtil.responseStatus(updatePost);
     }
 
-    //delete post through postId
-    @DeleteMapping("/delete/{postId}")
-    //@ApiOperation("delete post by 'commentId'")
-    public ApiResponse deletePost(@PathVariable Long postId) {
-        postService.deletePost(postId);
-        return new ApiResponse("Post is deleted successfully!!!!", true);
+    @DeleteMapping("/del/{postId}")
+    public ResponseEntity<String> deletePost(@PathVariable Long postId) {
+        String deletePost = postService.deletePost(postId);
+        return webTourismUtil.responseStatus(deletePost);
     }
 
-    //get post through postId
-    @GetMapping("/post/{postId}")
-    //@ApiOperation("get post by 'commentId'")
-    public ResponseEntity<PostDto> getPost(@PathVariable Long postId) {
-        PostDto postDto = postService.getPost(postId);
-        return ResponseEntity.ok(postDto);
+    @GetMapping("/get/{postId}")
+    public ResponseEntity<String> getPost(@PathVariable Long postId) {
+        String fetchPost = postService.getPost(postId);
+        return webTourismUtil.responseStatus(fetchPost);
     }
 
-    //get all posts
-    @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getPosts() {
-        List<PostDto> posts = postService.getPosts();
-        return ResponseEntity.ok(posts);
+    @GetMapping("/get/all")
+    public ResponseEntity<String> getAllPost() {
+        String fetchAllPost = postService.getAllPost();
+        return webTourismUtil.responseStatus(fetchAllPost);
     }
 
-    //get posts through size & number
-    @GetMapping("/all/posts")
+    /*@GetMapping("/all/posts")
     public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value="pageNumber", defaultValue= TourismConstants.PAGE_NUMBER, required=false) Integer pageNumber,
             @RequestParam(value="pageSize", defaultValue= TourismConstants.PAGE_SIZE, required=false) Integer pageSize,
@@ -74,21 +67,22 @@ public class PostController {
             @RequestParam(value="sortDir", defaultValue= TourismConstants.SORT_DIR, required=false) String sortDir) {
         PostResponse postResponse = postService.getAllPosts(pageNumber, pageSize, sortBy, sortDir);
         return ResponseEntity.ok(postResponse);
-    }
+    }*/
 
-    //get posts through userId
-    @GetMapping("/user/{userId}/posts")
+    /*@GetMapping("/user/{userId}/posts")
     public ResponseEntity<List<PostDto>> getPostsByUser(@PathVariable Long userId) {
         List<PostDto> posts = postService.getPostsByUser(userId);
         return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
-    }
+    }*/
 
 
     //search posts through title
-	/*@GetMapping("/posts/search/{keywords}")
+    /*@GetMapping("/posts/search/{keywords}")
 	public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable("keywords") String keywords) {
 		List<PostDto> result = postService.searchPosts(keywords);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}*/
 
+
 }
+

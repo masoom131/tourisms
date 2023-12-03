@@ -21,17 +21,25 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long userId;
+
     private String userName;
+
     private String userEmail;
+
     private String userPhone;
+
     private String userGender;
+
     private String userPassword;
-    private Long roleId;
-    private Long postId;
-    private Long CommentId;
-    private Long addressId;
+
+    @CreationTimestamp
     private Date createDate;
+
     private Date modifiedDate;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
 
     /*
